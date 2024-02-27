@@ -18,8 +18,18 @@ const languageNames = {
 
 const statusColors = {
   [ProjectStatus.stable]: BadgeColor.success,
+  [ProjectStatus.info]: BadgeColor.success,
   [ProjectStatus.warning]: BadgeColor.warning,
   [ProjectStatus.critical]: BadgeColor.error,
+  [ProjectStatus.error]: BadgeColor.error,
+};
+
+const statusLabels = {
+  [ProjectStatus.stable]: ProjectStatus.stable,
+  [ProjectStatus.info]: ProjectStatus.stable,
+  [ProjectStatus.warning]: ProjectStatus.warning,
+  [ProjectStatus.critical]: ProjectStatus.critical,
+  [ProjectStatus.error]: ProjectStatus.critical,
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
@@ -50,7 +60,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <div className={styles.issuesNumber}>{numEvents24h}</div>
           </div>
           <div className={styles.status}>
-            <Badge color={statusColors[status]}>{capitalize(status)}</Badge>
+            <Badge color={statusColors[status]}>
+              {capitalize(statusLabels[status])}
+            </Badge>
           </div>
         </div>
       </div>
