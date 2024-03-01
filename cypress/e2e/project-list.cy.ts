@@ -41,7 +41,7 @@ describe("Project List", () => {
 
       // get all project cards
       cy.get("main")
-        .find('[data-cy="project"]')
+        .find('[data-cy="project-list"]')
         .each(($el, index) => {
           // check that project data is rendered
           cy.wrap($el).contains(mockProjects[index].name);
