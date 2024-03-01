@@ -25,6 +25,7 @@ export function SidebarNavigation() {
       className={classNames(
         styles.container,
         isSidebarCollapsed && styles.isCollapsed,
+        styles.navigation,
       )}
     >
       <div
