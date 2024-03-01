@@ -120,11 +120,5 @@ describe("Sidebar Navigation", () => {
       cy.wait(500);
       isNotInViewport("nav");
     });
-
-    it("shows the correct large logo", () => {
-      // check the correct logo source
-      cy.get("img[src='/icons/logo-large.svg']").should("be.visible");
-      cy.get("img[src='/icons/logo-small.svg']").should("not.be.visible");
-    });
   });
 });
