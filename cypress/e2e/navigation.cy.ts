@@ -53,15 +53,23 @@ describe("Sidebar Navigation", () => {
 
     it("shows the correct logo", () => {
       // check the correct logo source
-      cy.get("img[src='/icons/logo-large.svg']").should("be.visible");
-      cy.get("img[src='/icons/logo-small.svg']").should("not.be.visible");
+      cy.get("header")
+        .find("img[src='/icons/logo-large.svg']")
+        .should("be.visible");
+      cy.get("header")
+        .find("img[src='/icons/logo-small.svg']")
+        .should("not.be.visible");
 
       // collapse navigation
       cy.get("nav").contains("Collapse").click();
 
       // check the correct logo source
-      cy.get("img[src='/icons/logo-small.svg']").should("be.visible");
-      cy.get("img[src='/icons/logo-large.svg']").should("not.be.visible");
+      cy.get("header")
+        .find("img[src='/icons/logo-small.svg']")
+        .should("be.visible");
+      cy.get("header")
+        .find("img[src='/icons/logo-large.svg']")
+        .should("not.be.visible");
     });
   });
 
@@ -111,12 +119,6 @@ describe("Sidebar Navigation", () => {
       cy.get("img[alt='close menu']").click();
       cy.wait(500);
       isNotInViewport("nav");
-    });
-
-    it("shows the correct large logo", () => {
-      // check the correct logo source
-      cy.get("img[src='/icons/logo-large.svg']").should("be.visible");
-      cy.get("img[src='/icons/logo-small.svg']").should("not.be.visible");
     });
   });
 });

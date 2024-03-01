@@ -20,19 +20,27 @@ describe("Issue List", () => {
 
     // open issues page
     cy.visit(`http://localhost:3000/dashboard/issues`);
+  });
+
+  it("shows a loading indicator", () => {
+    // check that the loading indicator is shown
+    cy.get("[data-cy='loading-indicator']").should("be.visible");
 
     // wait for request to resolve
     cy.wait(["@getProjects", "@getIssuesPage1"]);
-    cy.wait(500);
 
-    // set button aliases
-    cy.get("button").contains("Previous").as("prev-button");
-    cy.get("button").contains("Next").as("next-button");
+    // check that the loading indicator does not exist after loading
+    cy.get("[data-cy='issues-list']").should("be.visible");
+    cy.get("[data-cy='loading-indicator']").should("not.exist");
   });
 
   context("desktop resolution", () => {
     beforeEach(() => {
       cy.viewport(1025, 900);
+
+      // set button aliases
+      cy.get("button").contains("Previous").as("prev-button");
+      cy.get("button").contains("Next").as("next-button");
     });
 
     it("renders the issues", () => {
@@ -79,8 +87,15 @@ describe("Issue List", () => {
       cy.contains("Page 2 of 3");
 
       cy.reload();
+      // check that the loading indicator is shown
+      cy.get("[data-cy='loading-indicator']").should("be.visible");
+
+      // wait for request to resolve
       cy.wait(["@getProjects", "@getIssuesPage2"]);
-      cy.wait(1500);
+
+      // check that the loading indicator does not exist after loading
+      cy.get("[data-cy='issues-list']").should("be.visible");
+      cy.get("[data-cy='loading-indicator']").should("not.exist");
       cy.contains("Page 2 of 3");
     });
   });
