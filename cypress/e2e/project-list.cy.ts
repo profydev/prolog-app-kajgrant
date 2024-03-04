@@ -10,9 +10,18 @@ describe("Project List", () => {
 
     // open projects page
     cy.visit("http://localhost:3000/dashboard");
+  });
+
+  it("shows a loading indicator", () => {
+    // check that the loading indicator is shown
+    cy.get("[data-cy='loading-indicator']").should("be.visible");
 
     // wait for request to resolve
     cy.wait("@getProjects");
+
+    // check that the loading indicator does not exist after loading
+    cy.get("[data-cy='project-list']").should("be.visible");
+    cy.get("[data-cy='loading-indicator']").should("not.exist");
   });
 
   context("desktop resolution", () => {
@@ -32,7 +41,7 @@ describe("Project List", () => {
 
       // get all project cards
       cy.get("main")
-        .find('[data-cy="project"]')
+        .find('[data-cy="project-list"]')
         .each(($el, index) => {
           // check that project data is rendered
           cy.wrap($el).contains(mockProjects[index].name);
