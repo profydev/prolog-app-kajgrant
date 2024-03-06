@@ -2,31 +2,50 @@ import capitalize from "lodash/capitalize";
 import mockProjects from "../fixtures/projects.json";
 
 describe("Project List", () => {
-  beforeEach(() => {
+  it("shows an error message", () => {
     // setup request mock
-    cy.intercept("GET", "https://prolog-api.profy.dev/project", {
-      fixture: "projects.json",
-    }).as("getProjects");
+    cy.intercept(
+      { url: "https://prolog-api.profy.dev/project", times: 4 },
+      {
+        statusCode: 500,
+      },
+    );
 
     // open projects page
     cy.visit("http://localhost:3000/dashboard");
-  });
 
-  it("shows a loading indicator", () => {
-    // check that the loading indicator is shown
-    cy.get("[data-cy='loading-indicator']").should("be.visible");
+    // check that the error message is shown
+    cy.get("[data-cy='alert']", { timeout: 15000 })
+      .should("be.visible")
+      // click retry button
+      .find("button")
+      .click();
 
-    // wait for request to resolve
-    cy.wait("@getProjects");
-
-    // check that the loading indicator does not exist after loading
     cy.get("[data-cy='project-list']").should("be.visible");
-    cy.get("[data-cy='loading-indicator']").should("not.exist");
   });
 
   context("desktop resolution", () => {
     beforeEach(() => {
+      // setup request mock
+      cy.intercept("GET", "https://prolog-api.profy.dev/project", {
+        fixture: "projects.json",
+      }).as("getProjects");
+
+      // open projects page
+      cy.visit("http://localhost:3000/dashboard");
       cy.viewport(1025, 900);
+    });
+
+    it("shows a loading indicator", () => {
+      // check that the loading indicator is shown
+      cy.get("[data-cy='loading-indicator']").should("be.visible");
+
+      // wait for request to resolve
+      cy.wait("@getProjects");
+
+      // check that the loading indicator does not exist after loading
+      cy.get("[data-cy='project-list']").should("be.visible");
+      cy.get("[data-cy='loading-indicator']").should("not.exist");
     });
 
     it("renders the projects", () => {
