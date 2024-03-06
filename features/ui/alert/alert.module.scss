@@ -1,0 +1,32 @@
+@use "@styles/breakpoint";
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/space";
+
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+  padding: space.$s4;
+  gap: space.$s3;
+  border-radius: space.$s2;
+  border: 1px solid color.$error-300;
+  background: color.$error-25;
+  font: font.$text-sm-medium;
+  color: color.$error-700;
+
+  @media (min-width: breakpoint.$desktop) {
+    margin-left: -10px;
+    font: font.$text-sm-semibold;
+  }
+}
+
+.alertMessage {
+  flex: 1;
+}
+
+.button {
+  color: inherit;
+  font: inherit;
+}
