@@ -1,6 +1,12 @@
 import React from "react";
 import styles from "./alert.module.scss";
-import { Button } from "../button";
+import {
+  Button,
+  ButtonIcon,
+  ButtonColor,
+  ButtonSize,
+  ButtonVariant,
+} from "../button";
 
 type AlertProps = {
   context: string;
@@ -11,22 +17,20 @@ export function Alert({ context, refetchFn }: AlertProps) {
   return (
     <div className={styles.container} data-cy="alert">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={styles.alertIcon}
-        src="/icons/alert-circle.svg"
-        alt="alert icon"
-      />
+      <ButtonIcon src="/icons/alert-circle.svg" />
       <div className={styles.alertMessage}>
         There was a problem while loading the {context} data
       </div>
-      <Button className={styles.button} onClick={refetchFn}>
+      <Button
+        type="button"
+        size={ButtonSize.small}
+        variant={ButtonVariant.empty}
+        color={ButtonColor.error}
+        onClick={refetchFn}
+      >
         Try again
+        <ButtonIcon src="/icons/arrow-right.svg" />
       </Button>
-      <img
-        className={styles.buttonArrow}
-        src="/icons/arrow-right.svg"
-        alt="try again"
-      />
     </div>
   );
 }
