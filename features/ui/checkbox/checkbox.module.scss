@@ -1,0 +1,86 @@
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/space";
+
+.formControl {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  padding: 3px;
+}
+
+.disabledLabel {
+  color: color.$gray-300;
+  cursor: not-allowed;
+}
+
+.checkboxInput {
+  position: relative;
+  appearance: none;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid color.$gray-300;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font: font.$text-md-medium;
+
+  &.small {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    font: font.$text-sm-medium;
+  }
+
+  &:focus {
+    outline: 4px solid color.$primary-100;
+    border-color: color.$primary-300;
+  }
+
+  &:checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    visibility: visible;
+    background-image: url("../../../public/icons/check.svg");
+  }
+
+  &.indeterminate:checked::before {
+    visibility: visible;
+    background-image: url("../../../public/icons/minus.svg");
+  }
+
+  &:disabled:checked::before {
+    visibility: visible;
+    background-image: url("../../../public/icons/check_gray.svg");
+  }
+
+  &:disabled.indeterminate:checked::before {
+    visibility: visible;
+    background-image: url("../../../public/icons/minus_gray.svg");
+  }
+
+  &:disabled {
+    background-color: color.$gray-100;
+    border-color: color.$gray-200;
+    cursor: not-allowed;
+  }
+
+  &:not(:checked, :disabled):hover {
+    background-color: color.$primary-50;
+    border-color: color.$primary-600;
+  }
+
+  &:checked:not(:disabled):hover,
+  &.indeterminate:checked:not(:disabled):hover {
+    background-color: color.$primary-50;
+    border-color: color.$primary-600;
+  }
+}
