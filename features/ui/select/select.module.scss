@@ -1,0 +1,39 @@
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/space";
+
+.selectOption {
+  position: relative;
+}
+
+.selectMargin {
+  margin-right: 8px;
+}
+
+.selected {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.label {
+  font: font.$text-sm-medium;
+  color: color.$gray-700;
+}
+
+.select {
+  margin: 0.375rem 0;
+}
+
+.hint {
+  color: color.$gray-500;
+  font: font.$text-sm-regular;
+  margin: 0;
+}
+
+.error {
+  color: color.$error-500;
+  font: font.$text-sm-regular;
+  margin: 0;
+}
