@@ -4,3 +4,4 @@ export * from "./loadingIndicator";
 export * from "./alert";
 export * from "./checkbox";
 export * from "./select";
+export * from "./input";
